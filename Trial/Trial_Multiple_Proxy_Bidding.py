@@ -1,0 +1,2 @@
+from Simulation.Multiple_Proxy_Bidding_Simulation import ejecutar_simulaciones_multi
+ejecutar_simulaciones_multi(n,m)

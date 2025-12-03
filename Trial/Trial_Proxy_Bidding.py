@@ -1,0 +1,2 @@
+from  Simulation.Proxy_Bidding_Simulation import ejecutar_simulaciones
+ejecutar_simulaciones(5)
