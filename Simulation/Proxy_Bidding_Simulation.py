@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from eBay.Proxy_Bidding import ebay_proxy_bidding
 
 # Simulación. Array con la evolución de la media de precios de venta del objeto subastado dependeinte del precio de reserva
-def sim_reserv(n, reserve_price: list, min_increment, simulations=500000):
+def sim_reserv(n, reserve_price: list, min_increment, simulations=100):
     results = []
     for r in reserve_price:
         prices = []
@@ -15,16 +15,20 @@ def sim_reserv(n, reserve_price: list, min_increment, simulations=500000):
     return results
 
 # Simulación. Array con la evolución de la media de precios de venta del objeto subastado dependeinte del incremento mínimo de puja
-def sim_increment(n, reserve_price, min_increment: list, simulations=1000):
+def sim_increment(n, reserve_price, min_increment: list, simulations=100):
     results = []
+    bids = []
     for inc in min_increment:
         prices = []
+        bids_placed = []
         for sim in range(simulations):
-            winner, price = ebay_proxy_bidding(n, reserve_price, inc)
+            winner, price, buyers_count = ebay_proxy_bidding(n, reserve_price, inc)
             if price is not None:
                 prices.append(price)
+                bids_placed.append(buyers_count)
         results.append(np.mean(prices) if prices else 0)
-    return results
+        bids.append(np.mean(bids_placed) if bids_placed else 0)
+    return results, bids
 
 #Establecemos de forma determinista el dominio del precio de reserva y el incremneto mínimo de puja bajo la condición asumida por los autores s + 2d < V
 def ejecutar_simulaciones(n, max_min_increment):
@@ -52,4 +56,10 @@ def ejecutar_simulaciones(n, max_min_increment):
 
     plt.tight_layout()
     plt.show()
+
+
+def comparacion_simulaciones(n, max_min_increment):
+    Min_increment = np.linspace(0, max_min_increment, 20)
+    results_increment, bids = sim_increment(n, min_increment=Min_increment, reserve_price=0)
+    return Min_increment, results_increment, bids
 

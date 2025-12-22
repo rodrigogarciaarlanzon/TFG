@@ -15,6 +15,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
+    <option name="PRINT_LINE_NUMBERS" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -74,7 +79,8 @@
       <updated>1764785091493</updated>
       <workItem from="1764785209119" duration="2987000" />
       <workItem from="1764788263914" duration="1620000" />
-      <workItem from="1766421948718" duration="1500000" />
+      <workItem from="1766421948718" duration="2964000" />
+      <workItem from="1766425114244" duration="5849000" />
     </task>
     <servers />
   </component>
@@ -93,11 +99,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Class_Multiple_Proxy_Bidding.coverage" NAME="Class_Multiple_Proxy_Bidding Coverage Results" MODIFIED="1764787525854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Class" />
-    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Proxy_Bidding_Simulation.coverage" NAME="Proxy_Bidding_Simulation Coverage Results" MODIFIED="1766423208829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulation" />
+    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Proxy_Bidding_Simulation.coverage" NAME="Proxy_Bidding_Simulation Coverage Results" MODIFIED="1766430342250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulation" />
     <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Multiple_Proxy_Bidding_Simulation.coverage" NAME="Multiple_Proxy_Bidding_Simulation Coverage Results" MODIFIED="1764787577326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulation" />
-    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Proxy_Bidding.coverage" NAME="Proxy_Bidding Coverage Results" MODIFIED="1766423101042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/eBay" />
-    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Class_Proxy_Bidding.coverage" NAME="Class_Proxy_Bidding Coverage Results" MODIFIED="1766423097983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Class" />
+    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Proxy_Bidding.coverage" NAME="Proxy_Bidding Coverage Results" MODIFIED="1766429240306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/eBay" />
+    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Class_Proxy_Bidding.coverage" NAME="Class_Proxy_Bidding Coverage Results" MODIFIED="1766429237638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Class" />
     <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Multiple_Proxy_Bidding.coverage" NAME="Multiple_Proxy_Bidding Coverage Results" MODIFIED="1764787566307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/eBay" />
-    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Trial_Proxy_Bidding.coverage" NAME="Trial_Proxy_Bidding Coverage Results" MODIFIED="1766423232617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Trial" />
+    <SUITE FILE_PATH="coverage/TFG_ECONOMICS_PROGRAMING$Trial_Proxy_Bidding.coverage" NAME="Trial_Proxy_Bidding Coverage Results" MODIFIED="1766430899506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Trial" />
   </component>
 </project>

@@ -84,7 +84,7 @@ def ebay_proxy_bidding(n, reserve_price, min_increment):
         pass
         #print("Subasta inválida: nadie alcanzó el precio de reserva")
 
-    return highest_bidder, current_price
+    return highest_bidder, current_price, Buyers
 
 
 
