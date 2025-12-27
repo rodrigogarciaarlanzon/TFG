@@ -1,81 +1,127 @@
 import numpy as np
-from Class.Class_Multiple_Proxy_Bidding import Objeto, Postores
+from Class.Class_Multiple_Proxy_Bidding import Objeto, Buyer
 
-def arrival_order(n):
+def multiple_arrival_order(n: int):
     """
-    Crea n postores con valoraciones ~ U(0,1) y devuelve
-    un np.ndarray permutado aleatoriamente.
+    Genera un conjunto de n compradores independientes con valoraciones
+    distribuidas uniformemente en el intervalo [0, 1], y devuelve un
+    orden de llegada aleatorio para ser utilizado en una subasta.
+
+    Para cada comprador i:
+        - Se asigna un identificador único "ID{i}".
+        - Se genera una valoración privada v_i ~ U(0,1).
+        - Se crea una instancia de Buyer con dicha valoración.
+
+    Los compradores se almacenan en un array de objetos y posteriormente
+    se devuelve una permutación aleatoria del mismo, que representa el
+    orden de llegada efectivo en la subasta (mecanismo secuencial).
+
+    Args:
+        n (int): Número total de compradores a generar.
+
+    Returns:
+        np.ndarray: Array de objetos Buyer permutado aleatoriamente,
+                        representando el orden de llegada.
     """
     buyers_array = np.empty((0,), dtype=object)
     for i in range(n):
         valoracion = np.random.uniform(0, 1)
-        buyer = Postores(ID=f"ID{i+1}", valoracion=valoracion)
+        buyer = Buyer(ID=f"ID{i+1}", valoracion=valoracion)
         buyers_array = np.append(buyers_array, buyer)
     return np.random.permutation(buyers_array)
 
-def ebay_proxy_bidding_multiple(n, m, reserve_prices: list, min_increments: list):
-    biders = arrival_order(n)
+def ebay_proxy_bidding_multiple(n: int, m: int, reserve_prices: list, min_increments: list,
+                               biders = None, max_iter: int = 10000):
+    """
+    Implementa un mecanismo de Proxy Bidding para m objetos simultáneos,
+    replicando exactamente la lógica del proxy bidding individual en cada objeto.
+
+    Dinámica del mecanismo:
+
+    - Cada objeto j funciona como una subasta eBay independiente:
+        * highest_bid_j: puja máxima declarada (privada)
+        * second_highest_bid_j: segunda mayor puja
+        * current_price_j = min(highest_bid_j, second_highest_bid_j + d_j)
+
+    - Cada buyer i tiene una valoración v_i y solo puede competir en un objeto
+      a la vez (bienes sustitutivos perfectos).
+
+    - Si el current_price del objeto donde está compitiendo supera su valoración,
+      el buyer abandona automáticamente esa subasta.
+
+    - Si no está en ningún objeto, el buyer entra en el objeto viable cuyo
+      enter_price sea menor (regla greedy):
+            enter_price = reserva si no ha empezado, current_price + d si ya ha empezado.
+
+    - El proceso continúa iterativamente hasta alcanzar un punto fijo
+      (ningún buyer cambia de objeto) o hasta max_iter iteraciones.
+
+    Args:
+
+        n (int): Número total de postores.
+        m (int): Número total de objetos en subasta.
+        reserve_prices (list): Lista con los valoraciones del objeto.
+        min_increments (list): Lista de incrementos mínimos de puja para cada objeto.
+        max_iter (int): Máximo número de iteraciones para evitar bucles infinitos.
+
+    Returns:
+
+    objetos : list[Objeto]
+        Lista de objetos con su estado final (ganador, current_price, etc.).
+    """
+
+    # Generamos orden de llegada y objetos
+    if biders is None:
+        biders = multiple_arrival_order(n)
     objetos = [Objeto(i+1, reserve_prices[i], min_increments[i]) for i in range(m)]
+    objetos_by_id = {obj.ID: obj for obj in objetos}
 
-    print("=== Evolución de la subasta múltiple ===")
+    #print(INICIO DE LA SUBASTA MÚLTIPLE)
+    #print(f"Total buyers: {n}, Total objetos: {m}\n")
 
-    for buyer in biders:
-        bid = buyer.valoracion
+    changed = True
+    it = 0
+    while changed and it < max_iter:
+        changed = False
+        it += 1
+        #print(f"\n--- Iteración {it} ---")
+        for buyer in biders:
+            # 1) Si está en un objeto, comprobar si sigue siendo viable
+            if buyer.active_object is not None:
+                obj = objetos_by_id[buyer.active_object]
+                if obj.current_price > buyer.valoracion:
+                    #print(f"Buyer {buyer.ID} abandona Objeto {obj.ID} "
+                          #f"(current_price {obj.current_price:.3f} > valoración {buyer.valoracion:.3f})")
 
-        # Elegir el objeto con menor precio de entrada entre los que puede pujar
-        candidatos = [o for o in objetos if buyer.puede_pujar(o)]
-        if not candidatos:
-            print(f"\nPostor {buyer.ID} con valoración {bid:.3f} no puede pujar en ningún objeto.")
-            continue
+                    buyer.active_object = None
+                    changed = True
+            # 2) Si no está en ningún objeto, intentar entrar en uno nuevo
+            if buyer.active_object is None:
+                candidatos = [o for o in objetos if buyer.puede_pujar(o)]
+                if not candidatos:
+                    #print(f"Buyer {buyer.ID} (v={buyer.valoracion:.3f}) no puede pujar en ningún objeto.")
+                    continue
+                # Regla de entrada a nueva puja: objeto con menor enter_price
+                objeto = min(candidatos, key=lambda o: o.enter_price())
+                ep = objeto.enter_price()
+                #print(f"Buyer {buyer.ID} (v={buyer.valoracion:.3f}) evalúa Objeto {objeto.ID} "
+                      #f"(enter_price={ep:.3f}, current_price={objeto.current_price:.3f})")
 
-        objeto = min(candidatos, key=lambda o: o.enter_price())
-        enter_price = objeto.enter_price()
+                exito = objeto.registrar_puja(buyer, buyer.valoracion)
 
-        print(f"\nPujador {buyer.ID} llega con valoración {bid:.3f} y evalúa Objeto {objeto.ID} "
-              f"(precio de entrada {enter_price:.3f})")
-
-        # Primera puja en el objeto
-        if objeto.highest_bidder is None:
-            if bid >= objeto.reserve_price:
-                objeto.buyers_count += 1
-                objeto.current_price = objeto.reserve_price
-                objeto.highest_bid = bid
-                objeto.highest_bidder = buyer
-                buyer.pujas[objeto.ID] = objeto.current_price
-                print(f"Objeto {objeto.ID}: subasta comienza (reserva {objeto.reserve_price:.3f}), "
-                      f"precio a batir {objeto.highest_bid:.3f}")
-            else:
-                print(f"Objeto {objeto.ID}: valoración por debajo de la reserva. Ignorado.")
-        else:
-            # Pujas subsecuentes
-            if bid >= objeto.current_price + objeto.min_increment:
-                if bid > objeto.highest_bid:
-                    objeto.buyers_count += 1
-                    objeto.second_highest_bid = objeto.highest_bid
-                    objeto.highest_bid = bid
-                    objeto.highest_bidder = buyer
-                    print(f"Objeto {objeto.ID}: nuevo líder {buyer.ID} con valoración {bid:.3f}")
+                if exito:
+                    buyer.active_object = objeto.ID
+                    #print(f"Buyer {buyer.ID} entra en Objeto {objeto.ID}, highest_bid={objeto.highest_bid:.3f}, current_price={objeto.current_price:.3f}")
+                    changed = True
                 else:
-                    objeto.buyers_count += 1
-                    objeto.second_highest_bid = max(objeto.second_highest_bid, bid)
-                    print(f"Objeto {objeto.ID}: puja aceptada sin superar al líder. "
-                          f"Segunda mejor {objeto.second_highest_bid:.3f}")
+                    pass
+                    #print(f"Buyer {buyer.ID} no puede entrar en Objeto {objeto.ID}, puja insuficiente.")
 
-                # Actualizar precio visible (proxy)
-                prev_price = objeto.current_price
-                objeto.current_price = min(objeto.highest_bid, objeto.second_highest_bid + objeto.min_increment)
-                if objeto.current_price > prev_price:
-                    buyer.pujas[objeto.ID] = objeto.current_price
-                print(f"Objeto {objeto.ID}: precio visible actualizado {objeto.current_price:.3f}")
-            else:
-                print(f"Objeto {objeto.ID}: puja demasiado baja respecto a incremento mínimo. Ignorada.")
-
-    print("\n=== Resultados finales ===")
-    for obj in objetos:
-        if obj.highest_bidder:
-            print(f"Objeto {obj.ID}: ganador {obj.highest_bidder.ID} con valoración {obj.highest_bid:.3f}, "
-                  f"precio final {obj.current_price:.3f}, pujas observadas {obj.buyers_count}")
-        else:
-            print(f"Objeto {obj.ID}: sin ganador (no alcanzó reserva)")
+    #print(RESULTADOS FINALES)
+    #for obj in objetos:
+    #    if obj.highest_bidder:
+    #       print(f"Objeto {obj.ID}: ganador {obj.highest_bidder.ID}, highest_bid={obj.highest_bid:.3f}, precio_final={obj.current_price:.3f}, bids_aceptadas={obj.buyers_count}")
+    #    else:
+    #       print(f"Objeto {obj.ID}: sin ganador (no alcanzó reserva {obj.reserve_price:.3f})")
 
     return objetos
