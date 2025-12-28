@@ -20,7 +20,7 @@ x10, y10, z10 = comparacion_simulaciones_multiple(10, m, max_min_increment, sims
 x20, y20, z20 = comparacion_simulaciones_multiple(20, m, max_min_increment, sims)
 x40, y40, z40 = comparacion_simulaciones_multiple(40, m, max_min_increment, sims)
 
-# --- Gráfico comparativo ---
+# Gráfico comparativo
 plt.rcParams['font.family'] = 'Times New Roman'
 plt.rcParams['font.size'] = 14
 
