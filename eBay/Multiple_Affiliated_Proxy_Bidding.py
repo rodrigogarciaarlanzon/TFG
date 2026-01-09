@@ -221,7 +221,7 @@ def ebay_affiliated_bidding_multiple(n: int, m: int,reserve_prices: list,min_inc
     objetos = create_affiliated_objects(m, reserve_prices, min_increments)
     objetos_by_id = {obj.ID: obj for obj in objetos}
 
-    # 3. Dinámica iterativa (similar a tu función original)
+    # 3. Dinámica iterativa (similar a eBay Proxy Bidding Multiple)
     changed = True
     it = 0
     while changed and it < max_iter:

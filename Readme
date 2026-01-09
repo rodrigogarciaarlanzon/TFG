@@ -1,5 +1,45 @@
-Replicación sistema eBay proxy bidding de las obra The Effects of Proxy Bidding and Minimum
+Replicación del sistema eBay proxy bidding de las obra The Effects of Proxy Bidding and Minimum
 Bid Increments within eBay Auctions
 ALEX ROGERS, ESTHER DAVID, and NICHOLAS R. JENNING
-Ampliación sistema proxy bidding m objetos (m = 5 por defecto). Pujas dinámicas e iteraciones entre
-los postores.
+Ampliación sistema proxy bidding m objetos.
+Posterior ampliación para recoger un intento de incorporación de variables afiliadas de Milgrom & Weber.
+
+El proyecto se articula en cuatro capas progresivas que van desde la definición de elementos básicos
+hasta la ejecución de simulaciones complejas.
+En la primera capa, se definen las clases fundamentales: comenzando con Licitadores para el caso
+más simple de un solo objeto, luego Objeto y Buyer para el modelo multiobjeto estándar que implementa
+la lógica exacta del proxy bidding de eBay, y finalmente AffiliatedObject y AffiliatedBuyer para el
+modelo avanzado con afiliación, donde los objetos tienen características latentes correlacionadas y
+los compradores pueden actualizar dinámicamente sus valoraciones basándose en información pública.
+
+En la segunda capa, estos componentes se ensamblan en mecanismos de subasta operativos.
+ebay_proxy_bidding simula una subasta individual secuencial. ebay_proxy_bidding_multiple gestiona
+múltiples subastas simultáneas donde los compradores, que solo pueden pujar en un objeto a la vez,
+entran y salen de ellas siguiendo una regla basada en el precio de entrada, iterando hasta alcanzar
+un equilibrio. El mecanismo más sofisticado, ebay_affiliated_bidding_multiple, introduce una dinámica
+en dos fases: primero, los compradores actualizan sus valoraciones (Fase A: Aprendizaje) observando la
+intensidad de las pujas o los precios de objetos similares; luego, toman decisiones de puja
+(Fase B: Acción). Este ciclo se repite, creando un bucle de retroalimentación donde las pujas
+revelan información que altera las valoraciones, lo que a su vez genera nuevas pujas.
+
+La tercera capa está dedicada a la ejecución sistemática de experimentos. Se utilizan funciones como
+sim_increment o comparacion_simulaciones_multiple para, por ejemplo, variar el incremento mínimo
+de puja d y recolectar el ingreso promedio tras cientos o miles de réplicas estocásticas. Funciones
+más especializadas, como prob_kth_max_val_wins_by_position, analizan fenómenos específicos, como la
+probabilidad de que el postor con la k-ésima mayor valoración gane dependiendo de su orden de
+llegada, manipulando experimentalmente dicha posición (primero, aleatorio, último) en cada simulación.
+
+Finalmente, la cuarta capa se centra en el análisis y visualización de resultados.
+Funciones como plot_probabilities o plot_expected_profits toman los datos agregados de las simulaciones
+y generan los gráficos definitivos (recogidos en la subcarpeta con nombre del modelo especificado) ,
+configurando estilos, ejes y leyendas para presentar hallazgos clave, como la relación entre el
+incremento mínimo y el ingreso esperado, o la ventaja estratégica del orden de llegada.
+
+Se incluye una subcarpeta "Extra" que recoge el proceso de inferencia estadística realizado para
+el estudio de la maldición del ganador.
+
+La lógica subyacente es de complejidad incremental y modularidad: cada capa depende de la anterior,
+y el modelo con afiliación amplía (no reemplaza) a los modelos más simples. T0do el flujo está
+orientado a la investigación computacional, permitiendo contrastar predicciones teóricas
+(como la maldición del ganador) con resultados empíricos generados a partir de un microcosmos virtual
+controlado que simula el comportamiento estratégico en mercados de subastas.

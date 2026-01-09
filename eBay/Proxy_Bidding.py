@@ -5,7 +5,7 @@ from Class.Class_Proxy_Bidding import Licitadores
 def arrival_order(n: int) -> np.ndarray:
     """
     Genera un orden de llegada aleatorio para los licitadores de la subasta.
-    Crea `n` instancias de `Licitadores`, las almacena en un array de NumPy y
+    Crea n instancias de Licitadores, las almacena en un array de NumPy y
     devuelve una permutación aleatoria del mismo, representando el orden de
     llegada estocástico tal y como se refleja en el trabajo de
     A. Rogers, E. David, N. R. Jennings, and J. Schiff (2007). “The Effects of Proxy Bidding

@@ -31,9 +31,9 @@ ax.plot(x20, y20, marker='o', label='N = 20')
 ax.plot(x40, y40, marker='o', label='N = 40')
 
 # Título y ejes
-ax.set_title(f"Auction revenue per object vs number of bidders N (m = {m})", fontsize=18)
-ax.set_xlabel("Minimum bid increment d", fontsize=16)
-ax.set_ylabel("Expected auction revenue per object", fontsize=16)
+ax.set_title(f" m = {m}", fontsize=18)
+ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+ax.set_ylabel("Ingreso Esperado de la Subasta", fontsize=16)
 
 # Rango del eje Y (ajústalo según tus resultados)
 ax.set_ylim(0, 1.0)
@@ -47,9 +47,9 @@ ax.spines['right'].set_visible(False)
 ax.grid(True, linestyle='--', alpha=0.5)
 
 # Etiquetas sobre cada curva
-ax.text(x10[-1], y10[-1], "N = 10", fontsize=14, color='black', ha='left', va='bottom')
-ax.text(x20[-1], y20[-1], "N = 20", fontsize=14, color='black', ha='left', va='bottom')
-ax.text(x40[-1], y40[-1], "N = 40", fontsize=14, color='black', ha='left', va='bottom')
+ax.text(x10[-1], y10[-1], "n = 10", fontsize=14, color='black', ha='left', va='bottom')
+ax.text(x20[-1], y20[-1], "n = 20", fontsize=14, color='black', ha='left', va='bottom')
+ax.text(x40[-1], y40[-1], "n = 40", fontsize=14, color='black', ha='left', va='bottom')
 
 plt.tight_layout()
 plt.show()

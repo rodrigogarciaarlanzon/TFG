@@ -379,11 +379,10 @@ def plot_probabilities_multiple(d_values, results, k, m):
         ax.text(x[-1],results[key][-1],key,fontsize=14,ha='left',va='bottom')
 
     # Título adaptado al caso multiobjeto
-    ax.set_title(f"Figura 9({ 'a' if k==1 else 'c' }) — Probability of winning 1 object (k={k}, m={m})",
-        fontsize=18)
+    #ax.set_title(f"Figura 9({ 'a' if k==1 else 'c' }) — Probability of winning 1 object (k={k}, m={m})",fontsize=18)
 
-    ax.set_xlabel("Minimum bid increment d", fontsize=16)
-    ax.set_ylabel("Probability of winning ≥ 1 object", fontsize=16)
+    ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+    ax.set_ylabel("Probabilidad de Ganar 1 Objeto", fontsize=16)
 
     # Ejes
     ax.set_ylim(0, 1)
@@ -524,10 +523,9 @@ def plot_expected_profits_multiple(d_values, results, k, m):
         ax.text(x[-1],results[key][-1],key,fontsize=14,ha='left',va='bottom')
 
     # Título adaptado al caso multiobjeto
-    ax.set_title(f"Figura 9({'b' if k == 1 else 'd'}) — Expected profit (k={k}, m={m})",
-                 fontsize=18)
-    ax.set_xlabel("Minimum bid increment d", fontsize=16)
-    ax.set_ylabel("Expected profit (sum of profits over objects)", fontsize=16)
+    #ax.set_title(f"Figura 9({'b' if k == 1 else 'd'}) — Expected profit (k={k}, m={m})",fontsize=18)
+    ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+    ax.set_ylabel("Beneficio Esperado", fontsize=16)
     # Ejes
     ax.set_ylim(0, 0.3)
     ax.spines['bottom'].set_position(('data', 0))

@@ -84,7 +84,7 @@ def ebay_proxy_bidding_multiple(n: int, m: int, reserve_prices: list, min_increm
     while changed and it < max_iter:
         changed = False
         it += 1
-        #print(f"\n--- Iteración {it} ---")
+        #print(Iteración {it})
         for buyer in biders:
             # 1) Si está en un objeto, comprobar si sigue siendo viable
             if buyer.active_object is not None:

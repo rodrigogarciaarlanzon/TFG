@@ -31,11 +31,11 @@ for d in d_values:
 # Curva teórica n = 2 ln(N)
 N_continuo = np.linspace(1, 40, 400)
 f_teorica = 2 * np.log(N_continuo)
-ax.plot(N_continuo, f_teorica,label="n = 2 ln(N)",color="black",linewidth=2)
+ax.plot(N_continuo, f_teorica,label="N = 2 ln(n)",color="black",linewidth=2)
 # Títulos y ejes
-ax.set_title("Expected number of bid observed n vs Potential bidders N", fontsize=18)
-ax.set_xlabel("Potential bidders N", fontsize=16)
-ax.set_ylabel("Bids observed n", fontsize=16)
+#ax.set_title("Expected number of bid observed N vs Potential bidders n", fontsize=18)
+ax.set_xlabel("Postores Potenciales n", fontsize=16)
+ax.set_ylabel("Pujas Observadas N", fontsize=16)
 # Límites
 ax.set_xlim(0, 40)
 ax.set_ylim(0, 8)

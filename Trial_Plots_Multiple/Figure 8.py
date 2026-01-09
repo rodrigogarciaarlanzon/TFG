@@ -7,8 +7,8 @@ Fig. 8. Simulation results showing the probability of each bidder winning the au
 on the order in which they bid. There are 20 bidders with valuations drawn uniformly on [0,1] and
 s =0. Results are averaged over 10^7 auctions
 """
-
-res = prob_win_order_multiple(n=20, m = 5, d_values=[0,0.025,0.05,0.075,0.1], sims=1000)
+m = 5
+res = prob_win_order_multiple(n=20, m = m, d_values=[0,0.025,0.05,0.075,0.1], sims=1000)
 # Gráfico comparativo
 plt.rcParams['font.family'] = 'Times New Roman'
 plt.rcParams['font.size'] = 14
@@ -20,12 +20,12 @@ for d in res:
     # Etiqueta identificativa al final de cada curva
     ax.text(pos[-1],res[d][-1],f"d = {d}",fontsize=14,ha='left',va='bottom')
 # Títulos y etiquetas
-ax.set_title("Probability Winning Auction vs Order of Bidders", fontsize=18)
-ax.set_xlabel("Order of Bidders", fontsize=16)
-ax.set_ylabel("Probability Winning Auction", fontsize=16)
+ax.set_title(f"m ={m} ", fontsize=18)
+ax.set_xlabel("Orden de Llegada", fontsize=16)
+ax.set_ylabel("Probabilidad de Ganar un Objeto", fontsize=16)
 # Límites de los ejes
 ax.set_xlim(1, 20)
-ax.set_ylim(0, 0.5)
+ax.set_ylim(0, 0.8)
 # Intersección en (0, 0)
 ax.spines['bottom'].set_position(('data', 0))
 ax.spines['left'].set_position(('data', 0))

@@ -232,38 +232,19 @@ def _interpret_cohens_d(d):
 
 
 
-def ejemplo_1_comparacion_rapida():
-    """Comparación rápida con pocas simulaciones."""
-    print("Ejemplo 1: Comparación rápida de modelos")
-    resultados = compare_models(n=10, m=3, max_min_increment=0.2, sims=50)
-    return resultados
 
-
-def ejemplo_2_winners_curse_basico():
+def winners_curse():
     """Análisis básico de Winner's Curse."""
-    print("Ejemplo 2: Winner's Curse básico")
-    resultados = analyze_winners_curse(n=15, m=4, sims=100, alpha=0.05)
+    print("Ejemplo 2: Winner's Curse ")
+    resultados = analyze_winners_curse(n=20, m=5, sims=1000, alpha=0.05)
     return resultados
 
 
 
-def ejemplo_4_correr_todo():
-    """Ejecuta todos los ejemplos."""
-    print("=" * 60)
-    print("EJECUTANDO TODOS LOS EJEMPLOS")
-    print("=" * 60)
-
-    print("\n1. Comparación rápida...")
-    res1 = ejemplo_1_comparacion_rapida()
-
-    print("\n2. Winner's Curse básico...")
-    res2 = ejemplo_2_winners_curse_basico()
 
 
-    print("\n✓ Todos los ejemplos completados")
-    return res1, res2
 
 
 #Ejecutar código:
 if __name__ == "__main__":
-    ejemplo_4_correr_todo()
+    winners_curse()

@@ -7,8 +7,8 @@ from eBay.Proxy_Bidding import ebay_proxy_bidding, arrival_order
 def sim_reserv(n: int, reserve_price: list, min_increment: float, simulations: int):
     """
     Simula el precio final esperado en una subasta eBay Proxy Bidding para distintos precios de reserva.
-    Para cada valor en `reserve_price`, ejecuta múltiples simulaciones independientes del mecanismo
-    ebay_proxy_bidding` y calcula el precio final promedio observado (solo se consideran las subastas
+    Para cada valor en reserve_price, ejecuta múltiples simulaciones independientes del mecanismo
+    ebay_proxy_bidding y calcula el precio final promedio observado (solo se consideran las subastas
     que llegan a iniciarse, es decir, aquellas cuyo precio final no es None). Posible implementación en otro trabajos para el caso en que  d = 0 y variabilidad
     en precio de reserva (no lo analizamos, en eBay es obligatorio d > 0).
 
@@ -109,9 +109,9 @@ def ejecutar_simulaciones_d(n: int, max_min_increment: float):
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.plot( Min_increment,results_increment[0],marker='o',color='darkorange',linewidth=2,markersize=6)
         # Título y ejes
-        ax.set_title("Auction Revenue vs Minimum Increment", fontsize=18)
-        ax.set_xlabel("Minimum bid increment d", fontsize=16)
-        ax.set_ylabel("Expected auction revenue", fontsize=16)
+        #ax.set_title("Ingreso Esperado de la Subasta vs Incremento Mínimo", fontsize=18)
+        ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+        ax.set_ylabel("Ingreso Esperado de la Subasta", fontsize=16)
         # Eje Y desde 0.2 hasta 0.5
         ax.set_ylim(0.2, 0.5)
         # El eje X se coloca en y = 0.2
@@ -133,9 +133,9 @@ def ejecutar_simulaciones_d(n: int, max_min_increment: float):
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.plot(Min_increment,results_increment[0],marker='o',color='darkorange',linewidth=2,markersize=6)
         # Títulos y ejes
-        ax.set_title("Auction Revenue vs Minimum Increment", fontsize=18)
-        ax.set_xlabel("Minimum bid increment d", fontsize=16)
-        ax.set_ylabel("Expected auction revenue", fontsize=16)
+        #ax.set_title("Ingreso Esperado de la Subasta vs Incremento Mínimo", fontsize=18)
+        ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+        ax.set_ylabel("Ingreso Esperado de la Subasta", fontsize=16)
         # Eje Y desde 0.8 hasta 0.95
         ax.set_ylim(0.8, 0.95)
         # El eje X se coloca en y = 0.8
@@ -410,9 +410,9 @@ def plot_probabilities(d_values, results, k):
         ax.plot(x, results[key], marker='o', linewidth=2, label=key)
         # Etiqueta al final de cada curva
         ax.text(x[-1],results[key][-1],key,fontsize=14,ha='left',va='bottom')
-    ax.set_title(f"Figura 9({ 'a' if k==1 else 'c' }) — Probability winning k={k}", fontsize=18)
-    ax.set_xlabel("d", fontsize=16)
-    ax.set_ylabel("Probability of winning", fontsize=16)
+    #ax.set_title(f"Figura 6({ 'a' if k==1 else 'c' }) — Probability winning k={k}", fontsize=18)
+    ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+    ax.set_ylabel("Probabilidad de Ganar la Subasta", fontsize=16)
     # Ejes
     ax.set_ylim(bottom=0)
     ax.spines['bottom'].set_position(('data', 0))
@@ -517,9 +517,9 @@ def plot_expected_profits(d_values, results, k):
         # Etiqueta al final de cada curva
         ax.text(x[-1],results[key][-1],key,fontsize=14,ha='left',va='bottom')
 
-    ax.set_title(f"Figura 9({'b' if k == 1 else 'd'}) — Expected profit for k={k}", fontsize=18)
-    ax.set_xlabel("d", fontsize=16)
-    ax.set_ylabel("Expected profit", fontsize=16)
+    #ax.set_title(f"Figura 6({'b' if k == 1 else 'd'}) — Expected profit for k={k}", fontsize=18)
+    ax.set_xlabel("Incremento Mínimo de Puja d", fontsize=16)
+    ax.set_ylabel("Beneficio Esperado", fontsize=16)
     # Ejes
     ax.set_ylim(bottom=0)
     ax.spines['bottom'].set_position(('data', 0))

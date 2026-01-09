@@ -214,7 +214,7 @@ class AffiliatedBuyer:
         """
         Genera las valoraciones iniciales del comprador según el modelo de afiliación seleccionado.
                 - common_value:
-                    Valor común V ~ N(0.5, 0.2) y señales privadas ε_i ~ N(0, 0.15).
+                    Valor común V ~ U(0, 1) y señales privadas ε_i ~ N(0, 0.15).
                     Las valoraciones se truncan al intervalo [0,1].
 
                 - correlated_private:
@@ -230,9 +230,9 @@ class AffiliatedBuyer:
         """
         if self.valuation_method == "common_value":
             # Modelo: Valor común V + señal privada
-            V = np.random.normal(0.5, 0.15)  # Valor común
+            V = np.random.uniform(0,1)  # Valor común
             self.common_value = V
-            epsilon = np.random.normal(0, 0.1, self.n_objects)
+            epsilon = np.random.normal(0, 0.15, self.n_objects)
             self.valuations = np.clip(V + epsilon, 0, 1)
 
         elif self.valuation_method == "correlated_private":
